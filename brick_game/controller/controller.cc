@@ -12,8 +12,4 @@ void GameController::userInput(UserAction_t action, bool hold) {
   emit stateChanged(getCurrentState());
 }
 
-void GameController::startGame() { ::initGame(); }
-
-void GameController::closeGame() { ::endGame(); }
-
 }  // namespace s21

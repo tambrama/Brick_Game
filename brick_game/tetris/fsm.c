@@ -19,9 +19,7 @@ void userInput(UserAction_t action, bool hold) {
     }
     break;
   case SPAWN:
-    newFigire();
-    *status = MOVING;
-    info->pause = 0;
+//обработка в updateCurrentState
     break;
   case MOVING:
     if (action == Pause) {

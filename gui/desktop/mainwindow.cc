@@ -12,7 +12,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
   connect(controller, &s21::GameController::stateChanged, gameView,
           &GameView::updateState);
-  controller->startGame();
   restoreFocus();
 }
 

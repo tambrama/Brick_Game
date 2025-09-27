@@ -28,7 +28,6 @@ int main() {
 }
 
 void gameLoop() {
-  initGame();
   int ch;
   while ((ch = getch()) != ESC_KEY) {
     UserAction_t action = getSignal(ch);
@@ -36,5 +35,4 @@ void gameLoop() {
     updateCurrentState();
     printGame();
   }
-  endGame();
 }

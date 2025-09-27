@@ -36,7 +36,7 @@ typedef enum {
   Start,
   Pause,
   Terminate,  // завершение
-  Left,
+  Left, 
   Right,
   Up,     // вверх
   Down,   // вниз

@@ -15,6 +15,11 @@ GameStatus_t *getGameStatus() {
   return &status;
 }
 
+static bool *getInitialized() {
+  static bool initialized = false;
+  return &initialized;
+}
+
 UserAction_t *getAction() {
   static UserAction_t action = {0};
   return &action;
@@ -46,6 +51,21 @@ void initGame() {
 GameInfo_t updateCurrentState() {
   GameInfo_t *info = getGameInfo();
   GameStatus_t *status = getGameStatus();
+  bool *initialized = getInitialized();
+  
+  // Автоинициализация при первом вызове
+  if (!*initialized) {
+    initGame();
+    *initialized = true;
+  }
+  
+  // Обработка состояния SPAWN для автоматического спавна фигур
+  if (*status == SPAWN) {
+    newFigire();
+    *status = MOVING;
+    info->pause = 0;
+  }
+  
   // Проверка на завершение игры (верхняя строка)
   for (int j = 0; j < WIDTH_PLAY_WIN; j++) {
     if (info->field[0][j] == 2) {
@@ -521,6 +541,7 @@ void writeHighScore(int high_score) {
 void endGame() {
   GameInfo_t *info = getGameInfo();
   Figure_t *figure = getFigure();
+  bool *initialized = getInitialized();
 
   pthread_cancel(figure->drop_thread);
   pthread_join(figure->drop_thread, NULL);
@@ -528,4 +549,7 @@ void endGame() {
   removeMatrix(HEIGHT_PLAY_WIN, info->field);
   removeMatrix(FIGURE_SIZE, figure->figure);
   removeMatrix(FIGURE_SIZE, info->next);
+  
+  // Сброс флага инициализации для возможности перезапуска
+  *initialized = false;
 }

@@ -56,14 +56,6 @@ class GameController : public QObject {
    * @param hold Флаг удержания клавиши
    */
   void userInput(UserAction_t action, bool hold);
-  /**
-   * @brief Запуск новой игры
-   */
-  void startGame();
-  /**
-   * @brief Завершение текущей игры
-   */
-  void closeGame();
 
  signals:
   /**
